@@ -1,7 +1,7 @@
 const restaurant = {
   name: "The Tasty Bites",
   menu: [],
-  order: [],
+  orders: [],
   nextMenuId: 1,
   nextOrderId: 1,
 
@@ -70,6 +70,18 @@ const restaurant = {
     }
     return total;
   },
+
+  createOrder(customerName, itemIds) {
+    const order = {
+      orderId: this.nextOrderId,
+      customerName: customerName,
+      items: itemIds,
+      totalPrice: this.calculateOrderTotal(itemIds),
+      status: "pending",
+    };
+    this.orders.push(order);
+    this.nextOrderId++;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -92,3 +104,7 @@ console.log(foundItems);
 restaurant.displayMenu();
 const totalPrice = restaurant.calculateOrderTotal([1, 3]);
 console.log(totalPrice);
+restaurant.createOrder("Preshu", [1, 3]);
+console.log(restaurant.orders);
+restaurant.createOrder("TestUser", [4, 5]);
+console.log(restaurant.orders);
