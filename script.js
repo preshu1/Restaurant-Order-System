@@ -26,6 +26,15 @@ const restaurant = {
     }
     return null;
   },
+
+  findMenuItemById(id) {
+    for (let i = 0; i < this.menu.length; i++) {
+      if (this.menu[i].id === id) {
+        return this.menu[i];
+      }
+    }
+    return null;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -35,3 +44,7 @@ restaurant.addMenuItem("Salad", 200, "appetizer");
 console.log(restaurant.menu);
 console.log("Removed menu item: ", restaurant.removeMenuItem(2));
 console.log(restaurant.menu);
+// const item = restaurant.findMenuItemById(2);
+// console.log(item);
+const item = restaurant.findMenuItemById(1);
+console.log(item);
