@@ -82,6 +82,15 @@ const restaurant = {
     this.orders.push(order);
     this.nextOrderId++;
   },
+
+  findOrderById(id) {
+    for (let i = 0; i < this.orders.length; i++) {
+      if (this.orders[i].orderId === id) {
+        return this.orders[i];
+      }
+    }
+    return null;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -108,3 +117,5 @@ restaurant.createOrder("Preshu", [1, 3]);
 console.log(restaurant.orders);
 restaurant.createOrder("TestUser", [4, 5]);
 console.log(restaurant.orders);
+console.log(restaurant.findOrderById(1));
+console.log(restaurant.findOrderById(99));
