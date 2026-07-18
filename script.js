@@ -54,10 +54,21 @@ const restaurant = {
       const items = this.findMenuItemsByCategory(category);
       console.log(`CATEGORY : ${category.toUpperCase()}`);
       items.forEach((item) => {
-        console.log(` ${item.name} -${item.price}`);
+        console.log(` ${item.name} - $${item.price}`);
       });
       console.log("\n");
     });
+  },
+
+  calculateOrderTotal(itemIds) {
+    let total = 0;
+    for (const id of itemIds) {
+      const item = this.findMenuItemsById(id);
+      if (item) {
+        total += item.price;
+      }
+    }
+    return total;
   },
 };
 
@@ -79,3 +90,5 @@ console.log(item);
 const foundItems = restaurant.findMenuItemsByCategory("dessert");
 console.log(foundItems);
 restaurant.displayMenu();
+const totalPrice = restaurant.calculateOrderTotal([1, 3]);
+console.log(totalPrice);
