@@ -91,6 +91,15 @@ const restaurant = {
     }
     return null;
   },
+
+  updateOrderStatus(orderId, newStatus) {
+    const order = this.findOrderById(orderId);
+    if (order) {
+      order.status = newStatus;
+      return true;
+    }
+    return false;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -119,3 +128,6 @@ restaurant.createOrder("TestUser", [4, 5]);
 console.log(restaurant.orders);
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.findOrderById(99));
+console.log(restaurant.findOrderById(1));
+console.log(restaurant.updateOrderStatus(1, "ready"));
+console.log(restaurant.findOrderById(1));
