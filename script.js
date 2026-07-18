@@ -45,6 +45,20 @@ const restaurant = {
     }
     return allItems;
   },
+
+  displayMenu() {
+    console.log(this.name);
+    console.log("\n");
+    const categories = ["main", "drink", "appetizer"];
+    categories.forEach((category) => {
+      const items = this.findMenuItemsByCategory(category);
+      console.log(`CATEGORY : ${category.toUpperCase()}`);
+      items.forEach((item) => {
+        console.log(` ${item.name} -${item.price}`);
+      });
+      console.log("\n");
+    });
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -64,3 +78,4 @@ console.log(item);
 // console.log(foundItems);
 const foundItems = restaurant.findMenuItemsByCategory("dessert");
 console.log(foundItems);
+restaurant.displayMenu();
