@@ -100,6 +100,15 @@ const restaurant = {
     }
     return false;
   },
+  getOrdersBystatus(status) {
+    const allOrders = [];
+    for (let i = 0; i < this.orders.length; i++) {
+      if (this.orders[i].status === status) {
+        allOrders.push(this.orders[i]);
+      }
+    }
+    return allOrders;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -125,9 +134,12 @@ console.log(totalPrice);
 restaurant.createOrder("Preshu", [1, 3]);
 console.log(restaurant.orders);
 restaurant.createOrder("TestUser", [4, 5]);
+restaurant.createOrder("Amy", [3, 5]);
 console.log(restaurant.orders);
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.findOrderById(99));
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.updateOrderStatus(1, "ready"));
 console.log(restaurant.findOrderById(1));
+console.log(restaurant.getOrdersBystatus("ready"));
+console.log(restaurant.getOrdersBystatus("pending"));
