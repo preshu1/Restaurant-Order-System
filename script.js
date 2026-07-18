@@ -27,7 +27,7 @@ const restaurant = {
     return null;
   },
 
-  findMenuItemById(id) {
+  findMenuItemsById(id) {
     for (let i = 0; i < this.menu.length; i++) {
       if (this.menu[i].id === id) {
         return this.menu[i];
@@ -35,16 +35,32 @@ const restaurant = {
     }
     return null;
   },
+
+  findMenuItemsByCategory(category) {
+    const allItems = [];
+    for (let i = 0; i < this.menu.length; i++) {
+      if (this.menu[i].category === category) {
+        allItems.push(this.menu[i]);
+      }
+    }
+    return allItems;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
 restaurant.addMenuItem("Pizza", 800, "main");
 restaurant.addMenuItem("Coke", 100, "drink");
 restaurant.addMenuItem("Salad", 200, "appetizer");
+restaurant.addMenuItem("Sandwich", 350, "main");
+
 console.log(restaurant.menu);
 console.log("Removed menu item: ", restaurant.removeMenuItem(2));
 console.log(restaurant.menu);
 // const item = restaurant.findMenuItemById(2);
 // console.log(item);
-const item = restaurant.findMenuItemById(1);
+const item = restaurant.findMenuItemsById(1);
 console.log(item);
+// const foundItems = restaurant.findMenuItemsByCategory("main");
+// console.log(foundItems);
+const foundItems = restaurant.findMenuItemsByCategory("dessert");
+console.log(foundItems);
