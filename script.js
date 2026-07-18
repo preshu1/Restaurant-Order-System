@@ -109,6 +109,21 @@ const restaurant = {
     }
     return allOrders;
   },
+
+  displayAllOrders() {
+    for (const order of this.orders) {
+      const items = [];
+      order.items.forEach((itemId) => {
+        const menuItem = this.findMenuItemsById(itemId);
+        items.push(menuItem.name);
+      });
+      console.log(`Order Id: ${order.orderId}
+        Customer: ${order.customerName}
+        Items: ${items.join(", ")}
+        Total: $${order.totalPrice}
+        Status: ${order.status}`);
+    }
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -143,3 +158,4 @@ console.log(restaurant.updateOrderStatus(1, "ready"));
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.getOrdersBystatus("ready"));
 console.log(restaurant.getOrdersBystatus("pending"));
+console.log(restaurant.displayAllOrders());
