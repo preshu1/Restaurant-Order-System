@@ -124,6 +124,53 @@ const restaurant = {
         Status: ${order.status}`);
     }
   },
+
+  getTotalRevenue() {
+    let totalRevenue = 0;
+    for (const order of this.orders) {
+      if (order.status === "delivered") {
+        totalRevenue += order.totalPrice;
+      }
+    }
+    return totalRevenue;
+  },
+
+  getAverageOrderValue() {
+    let count = 0;
+    let totalRevenue = this.getTotalRevenue();
+    for (const order of this.orders) {
+      if (order.status === "delivered") {
+        count++;
+      }
+    }
+    if (count === 0) {
+      return 0;
+    }
+    return totalRevenue / count;
+  },
+
+  getMostPopularItem() {
+    const itemCount = {};
+    let mostPopularItemId = null;
+    let highestCount = 0;
+    for (const order of this.orders) {
+      order.items.forEach((itemId) => {
+        if (itemCount[itemId]) {
+          itemCount[itemId]++;
+        } else {
+          itemCount[itemId] = 1;
+        }
+      });
+    }
+    for (const itemId in itemCount) {
+      if (itemCount[itemId] > highestCount) {
+        highestCount = itemCount[itemId];
+        mostPopularItemId = Number(itemId);
+      }
+    }
+    const popularItem = this.findMenuItemsById(mostPopularItemId);
+    return popularItem.name;
+  },
 };
 
 restaurant.addMenuItem("Burger", 450, "main");
@@ -150,12 +197,17 @@ restaurant.createOrder("Preshu", [1, 3]);
 console.log(restaurant.orders);
 restaurant.createOrder("TestUser", [4, 5]);
 restaurant.createOrder("Amy", [3, 5]);
+restaurant.createOrder("Mike", [1, 4, 5]);
 console.log(restaurant.orders);
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.findOrderById(99));
 console.log(restaurant.findOrderById(1));
-console.log(restaurant.updateOrderStatus(1, "ready"));
+console.log(restaurant.updateOrderStatus(1, "delivered"));
+console.log(restaurant.updateOrderStatus(4, "delivered"));
 console.log(restaurant.findOrderById(1));
 console.log(restaurant.getOrdersBystatus("ready"));
 console.log(restaurant.getOrdersBystatus("pending"));
 console.log(restaurant.displayAllOrders());
+console.log("Total Revenue: " + "$" + restaurant.getTotalRevenue());
+console.log("Average Revenue: " + "$" + restaurant.getAverageOrderValue());
+console.log("Most popular item :", restaurant.getMostPopularItem());
